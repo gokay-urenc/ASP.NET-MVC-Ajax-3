@@ -1,0 +1,54 @@
+﻿@model List<Product>
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/Stil.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+        <div class="col-md-6 col-lg-6">
+            <div class="card">
+                <div class="container-fliud">
+                    <div class="wrapper row">
+                        <div class="preview col-md-6">
+
+                            <div class="preview-pic tab-content">
+                                <div class="tab-pane active" id="pic-1"><img src="~/fonts/Resim.jpg" /></div>
+                            </div>
+                        </div>
+                        <div class="details col-md-6">
+                            <h3 class="product-title">@item.ProductName</h3>
+                            <div class="rating">
+                                <div class="stars">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                                <span class="review-no">@item.UnitsInStock adet ürün var</span>
+                            </div>
+                            <p class="product-description">@if(item.Category!=null) { @item.Category.Description }</p>
+                            <h4 class="price">Fiyat: <span>@item.UnitPrice.Value.ToString("c2")</span></h4>
+                            <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+                            <div class="action">
+                                @*<a class="like btn btn-default" href="/Urun/SepeteEkle/@item.ProductID"><span class="fa fa-shopping-cart"></span></a>*@
+                                @Ajax.ActionLink("Sepete Ekle", "SepeteEkle", "Urun", new { id = item.ProductID }, new AjaxOptions { OnSuccess = "sepetScript" }, new { @class = "like btn btn-default" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+<script>
+    function sepetScript(response) {
+        $('#sptSayi').html(response.length); // response, dizi geldiği için listede kaç farkı ürün olduğunu label'e ekledik.
+    }
+</script>

@@ -1,0 +1,38 @@
+﻿@model List<Product>
+
+<table class="table table-hover">
+    <tr>
+        <td>ID</td>
+        <td>Ürün Adı</td>
+        <td>Fiyatı</td>
+        <td>Stok Miktarı</td>
+        <td>Kategori Adı</td>
+        <td>Tedarikçi Adı</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ProductID</td>
+            <td>@item.ProductName</td>
+            <td>@item.UnitPrice</td>
+            <td>@item.UnitsInStock</td>
+            @if (item.Category != null)
+            {
+                <td>@item.Category.CategoryName</td>
+            }
+            else
+            {
+                <td style="background-color:red; color:white">Ürünün kategorisi yoktur</td>
+            }
+
+            @if (item.Supplier != null)
+            {
+                <td>@item.Supplier.CompanyName</td>
+            }
+            else
+            {
+                <td style="background-color:red; color:white">Ürünün tedarikçisi yoktur</td>
+            }
+        </tr>
+    }
+</table>

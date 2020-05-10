@@ -1,0 +1,28 @@
+﻿@model List<Category>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-md-5 col-lg-5">
+        <table class="table table-striped">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CategoryID</td>
+                    <td>@item.CategoryName</td>
+                    <td>@item.Description</td>
+                    <td>@Ajax.ActionLink("Ürünleri Gör", "_UrunGetir", "Home", new { id = item.CategoryID }, new AjaxOptions { HttpMethod = "GET", OnSuccess = "urunScript" }, new { @class = "btn btn-success" })</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-1 col-lg-1"></div>
+    <div class="col-md-6 col-lg-6" id="urunPartialYeri"></div>
+</div>
+
+<script>
+    function urunScript(response) {
+        $('#urunPartialYeri').html(response)
+    }
+</script>
